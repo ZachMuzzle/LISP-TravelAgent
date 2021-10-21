@@ -77,7 +77,7 @@
                  (format t 
                     "The nodes, f-values, and actions on open list are ~A" 
                      (mapcar #'(lambda (x)
-                              (list x (get x 'least-cost-estimate) 
+                              (list x (get x 'least-cost-estimate) ;prints a list of LCS action and open list
                                       (get x 'action)))
                               (car open-closed)))
                  (terpri)
@@ -128,7 +128,7 @@
    nil)))
       
  (defun expand-graph
-   (succs parent-node open-closed succ-fn est-goal goal-city)
+   (succs parent-node open-closed succ-fn est-goal goal-city) ;est-goal is called from get-goal-estimate
 ;(break "entering expand-graph")
         ;; succs is the list of sucessors of parent-node
         ;; each element of succs is a tuple of the form 
@@ -168,14 +168,14 @@
                        (terpri)    
                        (expand-graph (cdr succs)
                                       parent-node
-                                     (list (add-to-open 
-                                           (create-node (caar succs) 
+                                      (list (add-to-open 
+                                           (create-node (caar succs) ; add-to-open pushes in node and car open-closed.
                                                      action
                                                      parent-node 
                                                      cost 
                                                      est-goal 
                                                      goal-city)
-                                            (car open-closed))
+                                            (car open-closed)) ; passes in for example (20 23)
                                          (cadr open-closed))
                                       succ-fn
                                       est-goal
@@ -274,7 +274,7 @@
 ; state is a city represented as a string such as "denver"
 ; lst is an open or closed list
 ; return true if a node on lst has this city as its state
-(cond 
+(cond  ; MAY HAVE TO CHANGE
   ((null lst) nil)
 
   ((equal (get node 'state) (car lst)) ; get node and state name(city) and see if equal to first element on list.
@@ -288,7 +288,23 @@
 ; n is a node and open is the open list
 ; return the revised open list with n inserted in the correct position
 ; YOU MUST WRITE THIS FUNCTION
+
+(cond ((null n) nil)
+      ((null open) nil)
+      (t (cons n open)) ; need to include adjust-open to check
+  ))
+"
+(let x ((get (n 'least-cost-estimate)) ;get f value for n.
+
+  (lst(get ((car open) 'least-cost-estimate))) 
+
+(cond 
+  ((null open) nil)
+    ((< x lst) (cons (car open) (add-to-open))
+    )
 )
+))
+"
 
 (defun adjust-open (n open)
 ;(break "entering adjust-open")
@@ -369,3 +385,18 @@
 ; line between two cities.
 )
 
+(defun distance (city goal-city)
+  ;Takes the coords and calulates the distance between city and goal-city
+  (let ((x1 (get (intern city)'x-coord)) ; local variables for x1, x2, y1,y2 and square 
+
+    (y1 (get (intern city)'y-coord))
+
+    (x2 (get (intern goal-city)'x-coord))
+
+    (y2 (get (intern goal-city)'y-coord))
+
+    (square (lambda (x) (* x x))))
+
+    (sqrt (+ (square (- x2 x1))
+          (square (- y2 y1))))))
+;NEED TO FIGURE OUT RETURN PART ALSO NEED TO ROUND ANSWER
