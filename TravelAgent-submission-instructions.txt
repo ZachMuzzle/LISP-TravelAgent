@@ -1,0 +1,25 @@
+The testcases for the Travel Agent project are available in
+TravelAgent-finaltests-21.lisp
+
+Please do the following to execute the test cases for the
+Travel Agent project and submit your results; note that dribble
+is a Lisp function that sends everything that appears on the screen
+to the named file
+
+1. Create a file of output for the testcases by doing the following:
+   invoke sbcl
+   (dribble "TravelAgent-output")
+   (load "TravelAgent-setup-21.lisp")
+   (database-setup)
+   (load "<your-file-of-code-for-TravelAgent>")
+   (load "TravelAgent-finaltests-21.lisp")
+   (testing)
+   (dribble)
+
+2. Check your file TravelAgent-output to make sure that it contains
+   the results of executing the testcases.
+
+3. Upload the following to Canvas:
+   A. your file of code for the Travel Agent problem
+   B. your file TravelAgent-output that was produced by executing
+      the testcases with your Travel Agent code
