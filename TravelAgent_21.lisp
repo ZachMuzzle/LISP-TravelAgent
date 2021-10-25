@@ -129,7 +129,7 @@
       
  (defun expand-graph
    (succs parent-node open-closed succ-fn est-goal goal-city) ;est-goal is called from get-goal-estimate
-;(break "entering expand-graph")
+(break "entering expand-graph")
         ;; succs is the list of sucessors of parent-node
         ;; each element of succs is a tuple of the form 
         ;;    (new-state means arc-cost) triples such as 
@@ -157,7 +157,7 @@
 			    arccost)))
               (format t "     The next successor is ~A" (car succs))
               (terpri)
-              ;(break "in expand-graph")
+              (break "in expand-graph")
               (cond ((and (not (state-on state (car open-closed))) ; takes a list of ((32 23) (23 42)) passes (32 23)
               ; and state: could be a state like "DENVER" "MIAMI" etc, (car open-closed) is our list as above ex.
               ; We are saying if state is not on open-close
@@ -228,7 +228,7 @@
 
 (defun update-node-open 
   (n parent successor-fn cost-of-short-path action open-closed )
-;(break "entering update-node-open")
+(break "entering update-node-open")
   ; open-closed is a 2-element list whose first element is the
   ;   open list and whose second element is the closed list
   ; node n is on the open list.
@@ -319,7 +319,7 @@
 
 
 (defun adjust-open (n open)
-;(break "entering adjust-open")
+(break "entering adjust-open")
 ; n is a node and open is the open list
 ; make sure that n is in its proper position on open list, and if not
 ;   move it to the proper position
@@ -387,28 +387,32 @@
 ; given as   
 ;   (city  means arc-cost) triples, such as ("baltimore" fly 2426)
 ; YOU MUST WRITE THIS FUNCTION
+
+; To find goal maybe need to find distance of our state (start) with the mean options that come together.
 (cond
   (t
-    (append
-      (successors-TP-check-carries (get (intern (get cnode 'state)) 'fly) (get (intern (get cnode 'state)) 'distance) 'fly)
-      (successors-TP-check-carries (get (intern (get cnode 'state)) 'take-bus) (get (intern (get cnode 'state)) 'distance) 'take-bus)
-      (successors-TP-check-carries (get (intern (get cnode 'state)) 'take-train) (get (intern (get cnode 'state)) 'distance) 'take-train)
+    (append 
+      (successors-TP-check-carries (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'fly)) (get cnode 'cost-to-goal-estimate) 'fly)
+      (successors-TP-check-carries (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-bus)) (get cnode 'cost-to-goal-estimate) 'take-bus)
+      (successors-TP-check-carries (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-train)) (get cnode 'cost-to-goal-estimate) 'take-train)
     )
   )
 )
 )
-
-(defun successors-TP-check-carries (carries distance mean)
+          ;carries is a list distance is not.
+(defun successors-TP-check-carries (carries distance mean) ; ((" "), 23411, 'fly)
   ; carries  is were you are going so for ex miami to denver ("Miami", "Denver")
   ; distance is how the distance to get somewhere 
   (cond
     ((null carries) ())
-    ((null (successors-TP-check-carry (car carries) distance)) ())
+    ((null (successors-TP-check-carry carries distance)) ())
     (t 
       (cond
         ((equal mean 'fly) 
           (cons (list (car carries) mean (successors-TP-check-carry (car carries) distance))
              (successors-TP-check-carries (cdr carries) distance mean)))
+
+
 
         ((equal mean 'take-bus)
           (cond 
@@ -419,6 +423,8 @@
              (successors-TP-check-carries (cdr carries) distance mean)))
           ) 
         ) 
+
+
 
         ((equal mean 'take-train)
           (cond 
@@ -436,9 +442,9 @@
 
 (defun successors-TP-check-carry (carry distance) ; checks if carry carry is equal to distance and return cadar distance
   (cond
-    ((null distance) ())
-    ((equal carry (caar distance)) (cadar distance))
-    (t (successors-TP-check-carry carry (cdr distance))) ; other wise recurse and keep checking
+    ((null carry) ())
+    ((= (car carry) distance) (distance)) ; is first element of carry equal to distance
+    (t (successors-TP-check-carry (cdr carry) distance)) ; other wise recurse and keep checking
   )
 )
 
@@ -449,23 +455,24 @@
 ;    goal city
 ; return True if the state for this node is goal-city
 ; YOU MUST WRITE THIS FUNCTION
-(if ((equal (get node 'state) goal-city) t) ; if node state is equal to goal-city return true other wise return nil
-  ;MAY NEED TO MAKE CHANGES FOR CALLING A STRING FOR GOAL-CITY. WILL HAVE TO SEE WHEN TEST.
-  nil))
+(cond 
+  ((equal (get node 'state) goal-city) t)
+  (t nil)
+)
+)
   
 (defun get-goal-estimate-TP (city goal-city)
  ; city and goal-city are both strings giving city names
  ;return an estimate h of the cost of getting from city to goal-city
 ; YOU MUST WRITE THIS FUNCTION
-
+(break "get-goal-estimate-TP")
 
   (cond
     ((equal city goal-city) 0 )
-    (t (get-goal-est-check-TP (distance city goal-city) goal-city)) ; call function distance 
-    )
+    (t (get-goal-estimate-TP-check (distance city goal-city) goal-city)) ; call function distance
 ; Using the city and goal-city, esitmate the cost of getting from city to goal-city. Use the h value used as a straight
 ; line between two cities.
-)
+))
 
 (defun get-goal-estimate-TP-check (city-list goal-city) ; HELPER TO GET-GOAL-ESTIMATE-TP
   (cond 
@@ -476,23 +483,26 @@
 
 (defun distance (city goal-city)
   ;Takes the coords and calulates the distance between city and goal-city
-  (let ((x1 (get (intern city) 'x-coord)) ; local variables for x1, x2, y1,y2 and square 
+  ; let* binds each variable to be used right after complation. Therefore won't get undefined errors.
+  (let* ((x1 (get (intern city) 'x-coord)) ; local variables for x1, x2, y1,y2 and square 
 
     (y1 (get (intern city) 'y-coord))
 
     (x2 (get (intern goal-city) 'x-coord))
 
-    (y2 (get (intern goal-city) 'y-coord)))
+    (y2 (get (intern goal-city) 'y-coord))
 
 
-    (round_num (sqrt (+ (square (- x2 x1))
+    (dist (round_num (sqrt (+ (square (- x2 x1))
           (square (- y2 y1)))))))
+
+    (list (list goal-city dist)))) ; returns (("seattle" 1024)) EXAMPLE
 ;NEED TO FIGURE OUT RETURN PART ALSO NEED TO ROUND ANSWER"
 
 (defun round_num(n1)
 
     (if ( = n1 0) 0
-    (list (round n1))
+    (round n1)
     ))
 
 
@@ -503,3 +513,26 @@
         (t (* x x))
         )
     )
+"Distance 2 is for calculating the distance with a list of different goal cities which we will use in our successors-TP"
+(defun distance-2 (city goal-city)
+  ;Takes the coords and calulates the distance between city and goal-city
+  ; let* binds each variable to be used right after complation. Therefore won't get undefined errors.
+  (if (endp goal-city) ;checks list is empty.
+    nil
+  (let* ((x1 (get (intern city) 'x-coord)) ; local variables for x1, x2, y1,y2 and square 
+
+    (y1 (get (intern city) 'y-coord))
+
+    (x2 (get (intern (car goal-city)) 'x-coord))
+
+    (y2 (get (intern (car goal-city)) 'y-coord))
+
+
+    (dist (round_num (sqrt (+ (square (- x2 x1))
+          (square (- y2 y1)))))))
+
+    (cond 
+    
+    ((null goal-city) ())
+    (t (cons  dist (distance-2 city (cdr goal-city)))
+        )))))
