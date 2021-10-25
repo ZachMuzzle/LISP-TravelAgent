@@ -392,12 +392,12 @@
 (cond
   (t
     (append 
-      (successors-TP-check-carries (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'fly)) (get cnode 'cost-to-goal-estimate) 'fly)
-      (successors-TP-check-carries (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-bus)) (get cnode 'cost-to-goal-estimate) 'take-bus)
-      (successors-TP-check-carries (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-train)) (get cnode 'cost-to-goal-estimate) 'take-train)
-    )
+      (successors-TP-check-carries (get (intern (get cnode 'state)) 'fly) (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'fly)) 'fly)
+      (successors-TP-check-carries (get (intern (get cnode 'state)) 'take-bus) (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-bus)) 'take-bus)
+      (successors-TP-check-carries (get (intern (get cnode 'state)) 'take-train) (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-train)) 'take-train)
+    ) ;                             will display a list of where to go to of states  (distance-2 will get the distance between state and all options to state can take.)
   )
-)
+) ;(cnode 'state 'fly ) will be ("newark" "dalllas" ...) and ; distance 2 will return (("newark" 200) ("dallas" 2422) ...)
 )
           ;carries is a list distance is not.
 (defun successors-TP-check-carries (carries distance mean) ; ((" "), 23411, 'fly)
