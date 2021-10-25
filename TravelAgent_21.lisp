@@ -129,7 +129,7 @@
       
  (defun expand-graph
    (succs parent-node open-closed succ-fn est-goal goal-city) ;est-goal is called from get-goal-estimate
-(break "entering expand-graph")
+;(break "entering expand-graph")
         ;; succs is the list of sucessors of parent-node
         ;; each element of succs is a tuple of the form 
         ;;    (new-state means arc-cost) triples such as 
@@ -157,7 +157,7 @@
 			    arccost)))
               (format t "     The next successor is ~A" (car succs))
               (terpri)
-              (break "in expand-graph")
+              ;(break "in expand-graph")
               (cond ((and (not (state-on state (car open-closed))) ; takes a list of ((32 23) (23 42)) passes (32 23)
               ; and state: could be a state like "DENVER" "MIAMI" etc, (car open-closed) is our list as above ex.
               ; We are saying if state is not on open-close
@@ -228,7 +228,7 @@
 
 (defun update-node-open 
   (n parent successor-fn cost-of-short-path action open-closed )
-(break "entering update-node-open")
+;(break "entering update-node-open")
   ; open-closed is a 2-element list whose first element is the
   ;   open list and whose second element is the closed list
   ; node n is on the open list.
@@ -277,7 +277,7 @@
 
 
 (defun state-on (state lst)
-(break "entering state-on")
+;(break "entering state-on")
 ; state is a city represented as a string such as "denver"
 ; lst is an open or closed list
 ; return true if a node on lst has this city as its state
@@ -319,7 +319,7 @@
 
 
 (defun adjust-open (n open)
-(break "entering adjust-open")
+;(break "entering adjust-open")
 ; n is a node and open is the open list
 ; make sure that n is in its proper position on open list, and if not
 ;   move it to the proper position
@@ -365,7 +365,7 @@
 ;    a list of successive actions) that was taken to get to node   
 ;    and cost of that path
 ; YOU MUST WRITE THIS FUNCTION
-" Use list function ?"
+" Use list function ?" ;Was best-path-cost before
 (list (get-path node) (get node 'best-path-cost) ;returns a list of our helper function get-path and our best-path of our node
 
 )
@@ -391,7 +391,7 @@
 ; To find goal maybe need to find distance of our state (start) with the mean options that come together.
 (cond
   (t
-    (append 
+    (append                                         ;returns all options to fly to from state                                ; returns the current state        ; returns all citys state can mean to
       (successors-TP-check-carries (get (intern (get cnode 'state)) 'fly) (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'fly)) 'fly)
       (successors-TP-check-carries (get (intern (get cnode 'state)) 'take-bus) (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-bus)) 'take-bus)
       (successors-TP-check-carries (get (intern (get cnode 'state)) 'take-train) (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-train)) 'take-train)
@@ -405,7 +405,7 @@
   ; distance is how the distance to get somewhere 
   (cond
     ((null carries) ())
-    ((null (successors-TP-check-carry carries distance)) ())
+    ((null (successors-TP-check-carry (car carries) distance)) ())
     (t 
       (cond
         ((equal mean 'fly) 
@@ -443,8 +443,8 @@
 (defun successors-TP-check-carry (carry distance) ; checks if carry carry is equal to distance and return cadar distance
   (cond
     ((null carry) ())
-    ((= (car carry) distance) (distance)) ; is first element of carry equal to distance
-    (t (successors-TP-check-carry (cdr carry) distance)) ; other wise recurse and keep checking
+    ((equal carry (caar distance)) (cadar distance)) ; is first element of carry equal to distance
+    (t (successors-TP-check-carry carry (cdr distance))) ; other wise recurse and keep checking
   )
 )
 
@@ -465,7 +465,7 @@
  ; city and goal-city are both strings giving city names
  ;return an estimate h of the cost of getting from city to goal-city
 ; YOU MUST WRITE THIS FUNCTION
-(break "get-goal-estimate-TP")
+;(break "get-goal-estimate-TP")
 
   (cond
     ((equal city goal-city) 0 )
@@ -534,5 +534,5 @@
     (cond 
     
     ((null goal-city) ())
-    (t (cons  dist (distance-2 city (cdr goal-city)))
+    (t (cons (list (car goal-city) dist) (distance-2 city (cdr goal-city)))
         )))))
