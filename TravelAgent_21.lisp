@@ -409,18 +409,19 @@
     (t 
       (cond
         ((equal mean 'fly) 
-          (cons (list (car carries) mean (successors-TP-check-carry (car carries) distance))
-             (successors-TP-check-carries (cdr carries) distance mean)))
+          (cons (list (car carries) mean (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 400 (cadar distance))))))
+          ;(break "Past cons in TP-check-carries")
+             (successors-TP-check-carries (cdr carries) (cdr distance) mean)))
 
 
-
+        ;(break "End of fly check-carries")
         ((equal mean 'take-bus)
           (cond 
-          ((< (successors-TP-check-carry (car carries) distance) 400)
+          ((< (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 100 (cadar distance)))))400)
             (cons (list (car carries) mean (successors-TP-check-carry (car carries) distance))
-             (successors-TP-check-carries (cdr carries) distance mean)))
-            (t (cons (list (car carries) mean (* (successors-TP-check-carry (car carries) distance) 2))
-             (successors-TP-check-carries (cdr carries) distance mean)))
+             (successors-TP-check-carries (cdr carries) (cdr distance) mean)))
+            (t (cons (list (car carries) mean (* (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 100 (cadar distance))))) 2))
+             (successors-TP-check-carries (cdr carries) (cdr distance) mean)))
           ) 
         ) 
 
@@ -428,11 +429,11 @@
 
         ((equal mean 'take-train)
           (cond 
-            ((< (successors-TP-check-carry (car carries) distance) 800)
+            ((< (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 200 (cadar distance))))) 800)
             (cons (list (car carries) mean (successors-TP-check-carry (car carries) distance))
-             (successors-TP-check-carries (cdr carries) distance mean)))
-            (t (cons (list (car carries) mean (* (successors-TP-check-carry (car carries) distance) 1.5))
-             (successors-TP-check-carries (cdr carries) distance mean)))
+             (successors-TP-check-carries (cdr carries) (cdr distance) mean)))
+            (t (cons (list (car carries) mean (* (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 200 (cadar distance))))) 1.5))
+             (successors-TP-check-carries (cdr carries) (cdr distance ) mean)))
           )  
         )
       )
@@ -441,6 +442,15 @@
 )
 
 (defun successors-TP-check-carry (carry distance) ; checks if carry carry is equal to distance and return cadar distance
+  ;(break "Start of successors-TP-check-carry")
+  (cond
+    ((null distance) ())
+    ((equal carry (caar distance)) (cadar distance)) ; is first element of carry equal to distance
+    (t (successors-TP-check-carry carry (cdr distance))) ; other wise recurse and keep checking
+  )
+)
+
+(defun successors-TP-check-carry-addition (carry distance) ; checks if carry carry is equal to distance and return cadar distance
   (cond
     ((null carry) ())
     ((equal carry (caar distance)) (cadar distance)) ; is first element of carry equal to distance
