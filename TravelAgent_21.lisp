@@ -246,6 +246,7 @@
   ; return the adjusted open-closed list
 ; YOU MUST WRITE THIS FUNCTION
 
+; We are just re settings our parameters of our node here.
 (setf (get n 'parent) parent)
     (setf (get n 'action) action)
     (setf (get n 'best-path-cost) cost-of-short-path)
@@ -397,10 +398,10 @@
       (successors-TP-check-carries (get (intern (get cnode 'state)) 'take-train) (distance-2 (get cnode 'state) (get (intern (get cnode 'state)) 'take-train)) 'take-train)
     ) ;                             will display a list of where to go to of states  (distance-2 will get the distance between state and all options to state can take.)
   )
-) ;(cnode 'state 'fly ) will be ("newark" "dalllas" ...) and ; distance 2 will return (("newark" 200) ("dallas" 2422) ...)
+) ;(cnode 'state 'fly ) will be ("newark" "dalllas" ...) and ; distance 2 will return (("newark" 200) ("dallas" 2422) ...) as an EXAMPLE.
 )
-          ;carries is a list distance is not.
-(defun successors-TP-check-carries (carries distance mean) ; ((" "), 23411, 'fly)
+          
+(defun successors-TP-check-carries (carries distance mean) ;
   ; carries  is were you are going so for ex miami to denver ("Miami", "Denver")
   ; distance is how the distance to get somewhere 
   (cond
@@ -409,19 +410,23 @@
     (t 
       (cond
         ((equal mean 'fly) 
-          (cons (list (car carries) mean (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 400 (cadar distance))))))
+          ;If mean is equal to fly will call successors-TP-check-carry with each first element of carries and a double list of the first element of distance with
+          ; the second element of distance plus 400 to take fly option.
+          (cons (list (car carries) mean (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 400 (cadar distance)))))) 
           ;(break "Past cons in TP-check-carries")
-             (successors-TP-check-carries (cdr carries) (cdr distance) mean)))
+             (successors-TP-check-carries (cdr carries) (cdr distance) mean))) ;recurse
 
 
         ;(break "End of fly check-carries")
         ((equal mean 'take-bus)
           (cond 
+          ;if equal to take-bus and distance is less than 400 will add distance plus 100 and then cons first element carries mean and distance.
           ((< (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 100 (cadar distance)))))400)
-            (cons (list (car carries) mean (successors-TP-check-carry (car carries) distance))
-             (successors-TP-check-carries (cdr carries) (cdr distance) mean)))
+            (cons (list (car carries) mean (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 100 (cadar distance))))))
+             (successors-TP-check-carries (cdr carries) (cdr distance) mean))) ;recurse
+             ; otherwise will do the same but with 2 times plus 100 for the distance.
             (t (cons (list (car carries) mean (+ (successors-TP-check-carry (car carries) (list (list (caar distance) (* 2 (cadar distance))))) 100))
-             (successors-TP-check-carries (cdr carries) (cdr distance) mean)))
+             (successors-TP-check-carries (cdr carries) (cdr distance) mean))) ;recurse
           ) 
         ) 
 
@@ -429,11 +434,13 @@
 
         ((equal mean 'take-train)
           (cond 
+            ; if less than 800 with distance + 200 then cons the list
             ((< (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 200 (cadar distance))))) 800)
-            (cons (list (car carries) mean (successors-TP-check-carry (car carries) distance))
-             (successors-TP-check-carries (cdr carries) (cdr distance) mean)))
+            (cons (list (car carries) mean (successors-TP-check-carry (car carries) (list (list (caar distance) (+ 200 (cadar distance))))))
+             (successors-TP-check-carries (cdr carries) (cdr distance) mean))) ; recurse
+             ; Otherwise cons a list like in take-bus but this time 1.5 times distance plus 200.
             (t (cons (list (car carries) mean (+ (successors-TP-check-carry (car carries) (list (list (caar distance) (* 1.5 (cadar distance))))) 200))
-             (successors-TP-check-carries (cdr carries) (cdr distance ) mean)))
+             (successors-TP-check-carries (cdr carries) (cdr distance ) mean))) ;recurse
           )  
         )
       )
@@ -445,15 +452,7 @@
   ;(break "Start of successors-TP-check-carry")
   (cond
     ((null distance) ())
-    ((equal carry (caar distance)) (cadar distance)) ; is first element of carry equal to distance
-    (t (successors-TP-check-carry carry (cdr distance))) ; other wise recurse and keep checking
-  )
-)
-
-(defun successors-TP-check-carry-addition (carry distance) ; checks if carry carry is equal to distance and return cadar distance
-  (cond
-    ((null carry) ())
-    ((equal carry (caar distance)) (cadar distance)) ; is first element of carry equal to distance
+    ((equal carry (caar distance)) (cadar distance)) ; is first element of carry equal to distance return the second element of distance list which is the distance.
     (t (successors-TP-check-carry carry (cdr distance))) ; other wise recurse and keep checking
   )
 )
@@ -488,13 +487,13 @@
   (cond 
     ((null city-list) nil) ; check if city-list is null return nil
       ((equal (caar city-list) goal-city) (cadar city-list)) ; check if caar of city-list is equal to goal-city and 
-                                                              ;return cadar of city-list
+                                                              ;return cadar of city-list which is the distance from out distance function
       (t (get-goal-estimate-TP-check (cdr city-list) goal-city)))) ; otherwise recurse annd check with rest of city-list
-
+"Distance is used for get-goal-estimate-TP"
 (defun distance (city goal-city)
   ;Takes the coords and calulates the distance between city and goal-city
   ; let* binds each variable to be used right after complation. Therefore won't get undefined errors.
-  (let* ((x1 (get (intern city) 'x-coord)) ; local variables for x1, x2, y1,y2 and square 
+  (let* ((x1 (get (intern city) 'x-coord)) ; local variables for x1, x2, y1,y2 and square. We use let* so that we can use dist variable.
 
     (y1 (get (intern city) 'y-coord))
 
@@ -507,16 +506,15 @@
           (square (- y2 y1)))))))
 
     (list (list goal-city dist)))) ; returns (("seattle" 1024)) EXAMPLE
-;NEED TO FIGURE OUT RETURN PART ALSO NEED TO ROUND ANSWER"
 
-(defun round_num(n1)
+(defun round_num(n1) ; function rounds a number and returns it
 
     (if ( = n1 0) 0
     (round n1)
     ))
 
 
-(defun square(x)
+(defun square(x) ; squares a number a returns it
 
     (cond 
         ((= x 0) 0)
@@ -541,6 +539,8 @@
     (dist (round_num (sqrt (+ (square (- x2 x1))
           (square (- y2 y1)))))))
 
+    ; we then will check if goal-city is null if so return empty otherwise we will cons a list of the first element of goal-city with the distance 
+    ; and recurse through the list of goal-city from when it is called within successors-TP-check-carries.
     (cond 
     
     ((null goal-city) ())
