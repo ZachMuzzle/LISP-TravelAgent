@@ -1,0 +1,1258 @@
+* (load "TravelAgent_21.lisp")
+
+T
+* (load "TA-setup")
+
+T
+* (database-setup)
+
+NIL
+* (load "TravelAgent-finaltests-21.lisp")
+
+T
+* (testing)
+
+"The next testcases call TravelAgent" 
+
+(TRAVELAGENT "newark" "bangor" 'GOAL-TEST-TP? 'SUCCESSORS-TP
+             'GET-GOAL-ESTIMATE-TP) 
+
+The nodes, f-values, and actions on open list are ((Node-newark 534 NIL))
+The nodes, f-values, and actions on closed list are NIL
+
+Select a new node from open list
+The selected node is Node-newark
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((boston FLY 724))
+     The next successor is (boston FLY 724)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-boston 936
+                                                    (boston FLY)))
+The nodes, f-values, and actions on closed list are ((Node-newark 534 NIL))
+
+Select a new node from open list
+The selected node is Node-boston
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((bangor FLY 612) (newark FLY 724)
+                                          (losangeles FLY 3135)
+                                          (westpalm TAKE-TRAIN 2180.0))
+     The next successor is (bangor FLY 612)
+this successor is not on open or closed list
+     The next successor is (newark FLY 724)
+this successor is on open or closed but path is not better
+     The next successor is (losangeles FLY 3135)
+this successor is not on open or closed list
+     The next successor is (westpalm TAKE-TRAIN 2180.0)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-bangor 1336
+                                                    (bangor FLY))
+                                                   (Node-westpalm 4421.0
+                                                    (westpalm TAKE-TRAIN))
+                                                   (Node-losangeles 6790
+                                                    (losangeles FLY)))
+The nodes, f-values, and actions on closed list are ((Node-boston 936
+                                                      (boston FLY))
+                                                     (Node-newark 534 NIL))
+
+Select a new node from open list
+The selected node is Node-bangor
+Check if this node is the goal node
+
+This is the goal node
+Here is the list of actions and total path cost in the solution
+
+((("boston" FLY) ("bangor" FLY)) 1336) 
+
+
+******************************************************
+******************************************************
+
+(TRAVELAGENT "denver" "westpalm" 'GOAL-TEST-TP? 'SUCCESSORS-TP
+             'GET-GOAL-ESTIMATE-TP) 
+
+The nodes, f-values, and actions on open list are ((Node-denver 1756 NIL))
+The nodes, f-values, and actions on closed list are NIL
+
+Select a new node from open list
+The selected node is Node-denver
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((baltimore FLY 2140)
+                                          (stlouis FLY 1630) (miami FLY 2214)
+                                          (boston TAKE-BUS 4038)
+                                          (miami TAKE-BUS 3728)
+                                          (durango TAKE-BUS 830)
+                                          (phoenix TAKE-BUS 1898)
+                                          (phoenix TAKE-TRAIN 1548.5))
+     The next successor is (baltimore FLY 2140)
+this successor is not on open or closed list
+     The next successor is (stlouis FLY 1630)
+this successor is not on open or closed list
+     The next successor is (miami FLY 2214)
+this successor is not on open or closed list
+     The next successor is (boston TAKE-BUS 4038)
+this successor is not on open or closed list
+     The next successor is (miami TAKE-BUS 3728)
+this successor is on open or closed but path is not better
+     The next successor is (durango TAKE-BUS 830)
+this successor is not on open or closed list
+     The next successor is (phoenix TAKE-BUS 1898)
+this successor is not on open or closed list
+     The next successor is (phoenix TAKE-TRAIN 1548.5)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+
+The nodes, f-values, and actions on open list are ((Node-miami 2281
+                                                    (miami FLY))
+                                                   (Node-stlouis 2371
+                                                    (stlouis FLY))
+                                                   (Node-durango 2473
+                                                    (durango TAKE-BUS))
+                                                   (Node-baltimore 3108
+                                                    (baltimore FLY))
+                                                   (Node-phoenix 3414.5
+                                                    (phoenix TAKE-TRAIN))
+                                                   (Node-boston 5358
+                                                    (boston TAKE-BUS)))
+The nodes, f-values, and actions on closed list are ((Node-denver 1756 NIL))
+
+Select a new node from open list
+The selected node is Node-miami
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((stlouis FLY 1208) (boston FLY 1766)
+                                          (ithaca FLY 1677)
+                                          (philadelphia FLY 1492)
+                                          (dallas FLY 1312)
+                                          (westpalm TAKE-BUS 167)
+                                          (stlouis TAKE-TRAIN 1412.0)
+                                          (seattle TAKE-TRAIN 4445.0))
+     The next successor is (stlouis FLY 1208)
+this successor is on open or closed but path is not better
+     The next successor is (boston FLY 1766)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (ithaca FLY 1677)
+this successor is not on open or closed list
+     The next successor is (philadelphia FLY 1492)
+this successor is not on open or closed list
+     The next successor is (dallas FLY 1312)
+this successor is not on open or closed list
+     The next successor is (westpalm TAKE-BUS 167)
+this successor is not on open or closed list
+     The next successor is (stlouis TAKE-TRAIN 1412.0)
+this successor is on open or closed but path is not better
+     The next successor is (seattle TAKE-TRAIN 4445.0)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-stlouis 2371
+                                                    (stlouis FLY))
+                                                   (Node-westpalm 2381
+                                                    (westpalm TAKE-BUS))
+                                                   (Node-durango 2473
+                                                    (durango TAKE-BUS))
+                                                   (Node-baltimore 3108
+                                                    (baltimore FLY))
+                                                   (Node-phoenix 3414.5
+                                                    (phoenix TAKE-TRAIN))
+                                                   (Node-dallas 4401
+                                                    (dallas FLY))
+                                                   (Node-philadelphia 4750
+                                                    (philadelphia FLY))
+                                                   (Node-ithaca 5115
+                                                    (ithaca FLY))
+                                                   (Node-boston 5300
+                                                    (boston FLY))
+                                                   (Node-seattle 9432.0
+                                                    (seattle TAKE-TRAIN)))
+The nodes, f-values, and actions on closed list are ((Node-miami 2281
+                                                      (miami FLY))
+                                                     (Node-denver 1756 NIL))
+
+Select a new node from open list
+The selected node is Node-stlouis
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((philadelphia FLY 1071)
+                                          (boston FLY 1324))
+     The next successor is (philadelphia FLY 1071)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (boston FLY 1324)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+
+The nodes, f-values, and actions on open list are ((Node-westpalm 2381
+                                                    (westpalm TAKE-BUS))
+                                                   (Node-durango 2473
+                                                    (durango TAKE-BUS))
+                                                   (Node-baltimore 3108
+                                                    (baltimore FLY))
+                                                   (Node-phoenix 3414.5
+                                                    (phoenix TAKE-TRAIN))
+                                                   (Node-philadelphia 3745
+                                                    (philadelphia FLY))
+                                                   (Node-boston 4274
+                                                    (boston FLY))
+                                                   (Node-dallas 4401
+                                                    (dallas FLY))
+                                                   (Node-ithaca 5115
+                                                    (ithaca FLY))
+                                                   (Node-seattle 9432.0
+                                                    (seattle TAKE-TRAIN)))
+The nodes, f-values, and actions on closed list are ((Node-stlouis 2371
+                                                      (stlouis FLY))
+                                                     (Node-miami 2281
+                                                      (miami FLY))
+                                                     (Node-denver 1756 NIL))
+
+Select a new node from open list
+The selected node is Node-westpalm
+Check if this node is the goal node
+
+This is the goal node
+Here is the list of actions and total path cost in the solution
+
+((("miami" FLY) ("westpalm" TAKE-BUS)) 2381) 
+
+
+******************************************************
+******************************************************
+
+(TRAVELAGENT "westpalm" "boston" 'GOAL-TEST-TP? 'SUCCESSORS-TP
+             'GET-GOAL-ESTIMATE-TP) 
+
+The nodes, f-values, and actions on open list are ((Node-westpalm 1320 NIL))
+The nodes, f-values, and actions on closed list are NIL
+
+Select a new node from open list
+The selected node is Node-westpalm
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((pittsburgh FLY 1540)
+                                          (baltimore FLY 1368))
+     The next successor is (pittsburgh FLY 1540)
+this successor is not on open or closed list
+     The next successor is (baltimore FLY 1368)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-baltimore 1734
+                                                    (baltimore FLY))
+                                                   (Node-pittsburgh 1999
+                                                    (pittsburgh FLY)))
+The nodes, f-values, and actions on closed list are ((Node-westpalm 1320 NIL))
+
+Select a new node from open list
+The selected node is Node-baltimore
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((miami FLY 1419)
+                                          (philadelphia FLY 485))
+     The next successor is (miami FLY 1419)
+this successor is not on open or closed list
+     The next successor is (philadelphia FLY 485)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-pittsburgh 1999
+                                                    (pittsburgh FLY))
+                                                   (Node-philadelphia 2136
+                                                    (philadelphia FLY))
+                                                   (Node-miami 4153
+                                                    (miami FLY)))
+The nodes, f-values, and actions on closed list are ((Node-baltimore 1734
+                                                      (baltimore FLY))
+                                                     (Node-westpalm 1320 NIL))
+
+Select a new node from open list
+The selected node is Node-pittsburgh
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((philadelphia FLY 735))
+     The next successor is (philadelphia FLY 735)
+this successor is on open or closed but path is not better
+
+The nodes, f-values, and actions on open list are ((Node-philadelphia 2136
+                                                    (philadelphia FLY))
+                                                   (Node-miami 4153
+                                                    (miami FLY)))
+The nodes, f-values, and actions on closed list are ((Node-pittsburgh 1999
+                                                      (pittsburgh FLY))
+                                                     (Node-baltimore 1734
+                                                      (baltimore FLY))
+                                                     (Node-westpalm 1320 NIL))
+
+Select a new node from open list
+The selected node is Node-philadelphia
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((baltimore FLY 485)
+                                          (stlouis FLY 1071) (newark FLY 442)
+                                          (newark TAKE-BUS 142)
+                                          (baltimore TAKE-BUS 185)
+                                          (ithaca TAKE-BUS 328))
+     The next successor is (baltimore FLY 485)
+this successor is on open or closed but path is not better
+     The next successor is (stlouis FLY 1071)
+this successor is not on open or closed list
+     The next successor is (newark FLY 442)
+this successor is not on open or closed list
+     The next successor is (newark TAKE-BUS 142)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (baltimore TAKE-BUS 185)
+this successor is on open or closed but path is not better
+     The next successor is (ithaca TAKE-BUS 328)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-newark 2319
+                                                    (newark TAKE-BUS))
+                                                   (Node-ithaca 2423
+                                                    (ithaca TAKE-BUS))
+                                                   (Node-stlouis 3848
+                                                    (stlouis FLY))
+                                                   (Node-miami 4153
+                                                    (miami FLY)))
+The nodes, f-values, and actions on closed list are ((Node-philadelphia 2136
+                                                      (philadelphia FLY))
+                                                     (Node-pittsburgh 1999
+                                                      (pittsburgh FLY))
+                                                     (Node-baltimore 1734
+                                                      (baltimore FLY))
+                                                     (Node-westpalm 1320 NIL))
+
+Select a new node from open list
+The selected node is Node-newark
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((boston FLY 724))
+     The next successor is (boston FLY 724)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-ithaca 2423
+                                                    (ithaca TAKE-BUS))
+                                                   (Node-boston 2719
+                                                    (boston FLY))
+                                                   (Node-stlouis 3848
+                                                    (stlouis FLY))
+                                                   (Node-miami 4153
+                                                    (miami FLY)))
+The nodes, f-values, and actions on closed list are ((Node-newark 2319
+                                                      (newark TAKE-BUS))
+                                                     (Node-philadelphia 2136
+                                                      (philadelphia FLY))
+                                                     (Node-pittsburgh 1999
+                                                      (pittsburgh FLY))
+                                                     (Node-baltimore 1734
+                                                      (baltimore FLY))
+                                                     (Node-westpalm 1320 NIL))
+
+Select a new node from open list
+The selected node is Node-ithaca
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are NIL
+
+The nodes, f-values, and actions on open list are ((Node-boston 2719
+                                                    (boston FLY))
+                                                   (Node-stlouis 3848
+                                                    (stlouis FLY))
+                                                   (Node-miami 4153
+                                                    (miami FLY)))
+The nodes, f-values, and actions on closed list are ((Node-ithaca 2423
+                                                      (ithaca TAKE-BUS))
+                                                     (Node-newark 2319
+                                                      (newark TAKE-BUS))
+                                                     (Node-philadelphia 2136
+                                                      (philadelphia FLY))
+                                                     (Node-pittsburgh 1999
+                                                      (pittsburgh FLY))
+                                                     (Node-baltimore 1734
+                                                      (baltimore FLY))
+                                                     (Node-westpalm 1320 NIL))
+
+Select a new node from open list
+The selected node is Node-boston
+Check if this node is the goal node
+
+This is the goal node
+Here is the list of actions and total path cost in the solution
+
+((("baltimore" FLY) ("philadelphia" FLY) ("newark" TAKE-BUS) ("boston" FLY))
+ 2719) 
+
+
+******************************************************
+******************************************************
+
+(TRAVELAGENT "memphis" "westpalm" 'GOAL-TEST-TP? 'SUCCESSORS-TP
+             'GET-GOAL-ESTIMATE-TP) 
+
+The nodes, f-values, and actions on open list are ((Node-memphis 691 NIL))
+The nodes, f-values, and actions on closed list are NIL
+
+Select a new node from open list
+The selected node is Node-memphis
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((seattle FLY 2484)
+                                          (stlouis TAKE-TRAIN 624))
+     The next successor is (seattle FLY 2484)
+this successor is not on open or closed list
+     The next successor is (stlouis TAKE-TRAIN 624)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-stlouis 1365
+                                                    (stlouis TAKE-TRAIN))
+                                                   (Node-seattle 5257
+                                                    (seattle FLY)))
+The nodes, f-values, and actions on closed list are ((Node-memphis 691 NIL))
+
+Select a new node from open list
+The selected node is Node-stlouis
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((philadelphia FLY 1071)
+                                          (boston FLY 1324))
+     The next successor is (philadelphia FLY 1071)
+this successor is not on open or closed list
+     The next successor is (boston FLY 1324)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-philadelphia 2739
+                                                    (philadelphia FLY))
+                                                   (Node-boston 3268
+                                                    (boston FLY))
+                                                   (Node-seattle 5257
+                                                    (seattle FLY)))
+The nodes, f-values, and actions on closed list are ((Node-stlouis 1365
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 691 NIL))
+
+Select a new node from open list
+The selected node is Node-philadelphia
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((baltimore FLY 485)
+                                          (stlouis FLY 1071) (newark FLY 442)
+                                          (newark TAKE-BUS 142)
+                                          (baltimore TAKE-BUS 185)
+                                          (ithaca TAKE-BUS 328))
+     The next successor is (baltimore FLY 485)
+this successor is not on open or closed list
+     The next successor is (stlouis FLY 1071)
+this successor is on open or closed but path is not better
+     The next successor is (newark FLY 442)
+this successor is not on open or closed list
+     The next successor is (newark TAKE-BUS 142)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (baltimore TAKE-BUS 185)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (ithaca TAKE-BUS 328)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-newark 2843
+                                                    (newark TAKE-BUS))
+                                                   (Node-baltimore 2848
+                                                    (baltimore TAKE-BUS))
+                                                   (Node-ithaca 3247
+                                                    (ithaca TAKE-BUS))
+                                                   (Node-boston 3268
+                                                    (boston FLY))
+                                                   (Node-seattle 5257
+                                                    (seattle FLY)))
+The nodes, f-values, and actions on closed list are ((Node-philadelphia 2739
+                                                      (philadelphia FLY))
+                                                     (Node-stlouis 1365
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 691 NIL))
+
+Select a new node from open list
+The selected node is Node-newark
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((boston FLY 724))
+     The next successor is (boston FLY 724)
+this successor is on open or closed but path is not better
+
+The nodes, f-values, and actions on open list are ((Node-baltimore 2848
+                                                    (baltimore TAKE-BUS))
+                                                   (Node-ithaca 3247
+                                                    (ithaca TAKE-BUS))
+                                                   (Node-boston 3268
+                                                    (boston FLY))
+                                                   (Node-seattle 5257
+                                                    (seattle FLY)))
+The nodes, f-values, and actions on closed list are ((Node-newark 2843
+                                                      (newark TAKE-BUS))
+                                                     (Node-philadelphia 2739
+                                                      (philadelphia FLY))
+                                                     (Node-stlouis 1365
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 691 NIL))
+
+Select a new node from open list
+The selected node is Node-baltimore
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((miami FLY 1419)
+                                          (philadelphia FLY 485))
+     The next successor is (miami FLY 1419)
+this successor is not on open or closed list
+     The next successor is (philadelphia FLY 485)
+this successor is on open or closed but path is not better
+
+The nodes, f-values, and actions on open list are ((Node-ithaca 3247
+                                                    (ithaca TAKE-BUS))
+                                                   (Node-boston 3268
+                                                    (boston FLY))
+                                                   (Node-miami 3366
+                                                    (miami FLY))
+                                                   (Node-seattle 5257
+                                                    (seattle FLY)))
+The nodes, f-values, and actions on closed list are ((Node-baltimore 2848
+                                                      (baltimore TAKE-BUS))
+                                                     (Node-newark 2843
+                                                      (newark TAKE-BUS))
+                                                     (Node-philadelphia 2739
+                                                      (philadelphia FLY))
+                                                     (Node-stlouis 1365
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 691 NIL))
+
+Select a new node from open list
+The selected node is Node-ithaca
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are NIL
+
+The nodes, f-values, and actions on open list are ((Node-boston 3268
+                                                    (boston FLY))
+                                                   (Node-miami 3366
+                                                    (miami FLY))
+                                                   (Node-seattle 5257
+                                                    (seattle FLY)))
+The nodes, f-values, and actions on closed list are ((Node-ithaca 3247
+                                                      (ithaca TAKE-BUS))
+                                                     (Node-baltimore 2848
+                                                      (baltimore TAKE-BUS))
+                                                     (Node-newark 2843
+                                                      (newark TAKE-BUS))
+                                                     (Node-philadelphia 2739
+                                                      (philadelphia FLY))
+                                                     (Node-stlouis 1365
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 691 NIL))
+
+Select a new node from open list
+The selected node is Node-boston
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((bangor FLY 612) (newark FLY 724)
+                                          (losangeles FLY 3135)
+                                          (westpalm TAKE-TRAIN 2180.0))
+     The next successor is (bangor FLY 612)
+this successor is not on open or closed list
+     The next successor is (newark FLY 724)
+this successor is on open or closed but path is not better
+     The next successor is (losangeles FLY 3135)
+this successor is not on open or closed list
+     The next successor is (westpalm TAKE-TRAIN 2180.0)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-miami 3366
+                                                    (miami FLY))
+                                                   (Node-bangor 4077
+                                                    (bangor FLY))
+                                                   (Node-westpalm 4128.0
+                                                    (westpalm TAKE-TRAIN))
+                                                   (Node-seattle 5257
+                                                    (seattle FLY))
+                                                   (Node-losangeles 7167
+                                                    (losangeles FLY)))
+The nodes, f-values, and actions on closed list are ((Node-boston 3268
+                                                      (boston FLY))
+                                                     (Node-ithaca 3247
+                                                      (ithaca TAKE-BUS))
+                                                     (Node-baltimore 2848
+                                                      (baltimore TAKE-BUS))
+                                                     (Node-newark 2843
+                                                      (newark TAKE-BUS))
+                                                     (Node-philadelphia 2739
+                                                      (philadelphia FLY))
+                                                     (Node-stlouis 1365
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 691 NIL))
+
+Select a new node from open list
+The selected node is Node-miami
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((stlouis FLY 1208) (boston FLY 1766)
+                                          (ithaca FLY 1677)
+                                          (philadelphia FLY 1492)
+                                          (dallas FLY 1312)
+                                          (westpalm TAKE-BUS 167)
+                                          (stlouis TAKE-TRAIN 1412.0)
+                                          (seattle TAKE-TRAIN 4445.0))
+     The next successor is (stlouis FLY 1208)
+this successor is on open or closed but path is not better
+     The next successor is (boston FLY 1766)
+this successor is on open or closed but path is not better
+     The next successor is (ithaca FLY 1677)
+this successor is on open or closed but path is not better
+     The next successor is (philadelphia FLY 1492)
+this successor is on open or closed but path is not better
+     The next successor is (dallas FLY 1312)
+this successor is not on open or closed list
+     The next successor is (westpalm TAKE-BUS 167)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (stlouis TAKE-TRAIN 1412.0)
+this successor is on open or closed but path is not better
+     The next successor is (seattle TAKE-TRAIN 4445.0)
+this successor is on open or closed but path is not better
+
+The nodes, f-values, and actions on open list are ((Node-westpalm 3466
+                                                    (westpalm TAKE-BUS))
+                                                   (Node-bangor 4077
+                                                    (bangor FLY))
+                                                   (Node-seattle 5257
+                                                    (seattle FLY))
+                                                   (Node-dallas 5486
+                                                    (dallas FLY))
+                                                   (Node-losangeles 7167
+                                                    (losangeles FLY)))
+The nodes, f-values, and actions on closed list are ((Node-miami 3366
+                                                      (miami FLY))
+                                                     (Node-boston 3268
+                                                      (boston FLY))
+                                                     (Node-ithaca 3247
+                                                      (ithaca TAKE-BUS))
+                                                     (Node-baltimore 2848
+                                                      (baltimore TAKE-BUS))
+                                                     (Node-newark 2843
+                                                      (newark TAKE-BUS))
+                                                     (Node-philadelphia 2739
+                                                      (philadelphia FLY))
+                                                     (Node-stlouis 1365
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 691 NIL))
+
+Select a new node from open list
+The selected node is Node-westpalm
+Check if this node is the goal node
+
+This is the goal node
+Here is the list of actions and total path cost in the solution
+
+((("stlouis" TAKE-TRAIN) ("philadelphia" FLY) ("baltimore" TAKE-BUS)
+  ("miami" FLY) ("westpalm" TAKE-BUS))
+ 3466) 
+
+
+******************************************************
+******************************************************
+
+(TRAVELAGENT "westpalm" "ithaca" 'GOAL-TEST-TP? 'SUCCESSORS-TP
+             'GET-GOAL-ESTIMATE-TP) 
+
+The nodes, f-values, and actions on open list are ((Node-westpalm 1224 NIL))
+The nodes, f-values, and actions on closed list are NIL
+
+Select a new node from open list
+The selected node is Node-westpalm
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((pittsburgh FLY 1540)
+                                          (baltimore FLY 1368))
+     The next successor is (pittsburgh FLY 1540)
+this successor is not on open or closed list
+     The next successor is (baltimore FLY 1368)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-baltimore 1640
+                                                    (baltimore FLY))
+                                                   (Node-pittsburgh 1758
+                                                    (pittsburgh FLY)))
+The nodes, f-values, and actions on closed list are ((Node-westpalm 1224 NIL))
+
+Select a new node from open list
+The selected node is Node-baltimore
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((miami FLY 1419)
+                                          (philadelphia FLY 485))
+     The next successor is (miami FLY 1419)
+this successor is not on open or closed list
+     The next successor is (philadelphia FLY 485)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-pittsburgh 1758
+                                                    (pittsburgh FLY))
+                                                   (Node-philadelphia 2081
+                                                    (philadelphia FLY))
+                                                   (Node-miami 4064
+                                                    (miami FLY)))
+The nodes, f-values, and actions on closed list are ((Node-baltimore 1640
+                                                      (baltimore FLY))
+                                                     (Node-westpalm 1224 NIL))
+
+Select a new node from open list
+The selected node is Node-pittsburgh
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((philadelphia FLY 735))
+     The next successor is (philadelphia FLY 735)
+this successor is on open or closed but path is not better
+
+The nodes, f-values, and actions on open list are ((Node-philadelphia 2081
+                                                    (philadelphia FLY))
+                                                   (Node-miami 4064
+                                                    (miami FLY)))
+The nodes, f-values, and actions on closed list are ((Node-pittsburgh 1758
+                                                      (pittsburgh FLY))
+                                                     (Node-baltimore 1640
+                                                      (baltimore FLY))
+                                                     (Node-westpalm 1224 NIL))
+
+Select a new node from open list
+The selected node is Node-philadelphia
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((baltimore FLY 485)
+                                          (stlouis FLY 1071) (newark FLY 442)
+                                          (newark TAKE-BUS 142)
+                                          (baltimore TAKE-BUS 185)
+                                          (ithaca TAKE-BUS 328))
+     The next successor is (baltimore FLY 485)
+this successor is on open or closed but path is not better
+     The next successor is (stlouis FLY 1071)
+this successor is not on open or closed list
+     The next successor is (newark FLY 442)
+this successor is not on open or closed list
+     The next successor is (newark TAKE-BUS 142)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (baltimore TAKE-BUS 185)
+this successor is on open or closed but path is not better
+     The next successor is (ithaca TAKE-BUS 328)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-ithaca 2181
+                                                    (ithaca TAKE-BUS))
+                                                   (Node-newark 2242
+                                                    (newark TAKE-BUS))
+                                                   (Node-stlouis 3645
+                                                    (stlouis FLY))
+                                                   (Node-miami 4064
+                                                    (miami FLY)))
+The nodes, f-values, and actions on closed list are ((Node-philadelphia 2081
+                                                      (philadelphia FLY))
+                                                     (Node-pittsburgh 1758
+                                                      (pittsburgh FLY))
+                                                     (Node-baltimore 1640
+                                                      (baltimore FLY))
+                                                     (Node-westpalm 1224 NIL))
+
+Select a new node from open list
+The selected node is Node-ithaca
+Check if this node is the goal node
+
+This is the goal node
+Here is the list of actions and total path cost in the solution
+
+((("baltimore" FLY) ("philadelphia" FLY) ("ithaca" TAKE-BUS)) 2181) 
+
+
+******************************************************
+******************************************************
+
+(TRAVELAGENT "roanoke" "losangeles" 'GOAL-TEST-TP? 'SUCCESSORS-TP
+             'GET-GOAL-ESTIMATE-TP) 
+
+The nodes, f-values, and actions on open list are ((Node-roanoke 2163 NIL))
+The nodes, f-values, and actions on closed list are NIL
+
+Select a new node from open list
+The selected node is Node-roanoke
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((memphis FLY 1185)
+                                          (miami TAKE-BUS 2144))
+     The next successor is (memphis FLY 1185)
+this successor is not on open or closed list
+     The next successor is (miami TAKE-BUS 2144)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-memphis 2692
+                                                    (memphis FLY))
+                                                   (Node-miami 4265
+                                                    (miami TAKE-BUS)))
+The nodes, f-values, and actions on closed list are ((Node-roanoke 2163 NIL))
+
+Select a new node from open list
+The selected node is Node-memphis
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((seattle FLY 2484)
+                                          (stlouis TAKE-TRAIN 624))
+     The next successor is (seattle FLY 2484)
+this successor is not on open or closed list
+     The next successor is (stlouis TAKE-TRAIN 624)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-stlouis 3664
+                                                    (stlouis TAKE-TRAIN))
+                                                   (Node-miami 4265
+                                                    (miami TAKE-BUS))
+                                                   (Node-seattle 4906
+                                                    (seattle FLY)))
+The nodes, f-values, and actions on closed list are ((Node-memphis 2692
+                                                      (memphis FLY))
+                                                     (Node-roanoke 2163 NIL))
+
+Select a new node from open list
+The selected node is Node-stlouis
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((philadelphia FLY 1071)
+                                          (boston FLY 1324))
+     The next successor is (philadelphia FLY 1071)
+this successor is not on open or closed list
+     The next successor is (boston FLY 1324)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-miami 4265
+                                                    (miami TAKE-BUS))
+                                                   (Node-seattle 4906
+                                                    (seattle FLY))
+                                                   (Node-philadelphia 5394
+                                                    (philadelphia FLY))
+                                                   (Node-boston 5868
+                                                    (boston FLY)))
+The nodes, f-values, and actions on closed list are ((Node-stlouis 3664
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 2692
+                                                      (memphis FLY))
+                                                     (Node-roanoke 2163 NIL))
+
+Select a new node from open list
+The selected node is Node-miami
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((stlouis FLY 1208) (boston FLY 1766)
+                                          (ithaca FLY 1677)
+                                          (philadelphia FLY 1492)
+                                          (dallas FLY 1312)
+                                          (westpalm TAKE-BUS 167)
+                                          (stlouis TAKE-TRAIN 1412.0)
+                                          (seattle TAKE-TRAIN 4445.0))
+     The next successor is (stlouis FLY 1208)
+this successor is on open or closed but path is not better
+     The next successor is (boston FLY 1766)
+this successor is on open or closed but path is not better
+     The next successor is (ithaca FLY 1677)
+this successor is not on open or closed list
+     The next successor is (philadelphia FLY 1492)
+this successor is on open or closed but path is not better
+     The next successor is (dallas FLY 1312)
+this successor is not on open or closed list
+     The next successor is (westpalm TAKE-BUS 167)
+this successor is not on open or closed list
+     The next successor is (stlouis TAKE-TRAIN 1412.0)
+this successor is on open or closed but path is not better
+     The next successor is (seattle TAKE-TRAIN 4445.0)
+this successor is on open or closed but path is not better
+
+The nodes, f-values, and actions on open list are ((Node-westpalm 4395
+                                                    (westpalm TAKE-BUS))
+                                                   (Node-dallas 4665
+                                                    (dallas FLY))
+                                                   (Node-seattle 4906
+                                                    (seattle FLY))
+                                                   (Node-philadelphia 5394
+                                                    (philadelphia FLY))
+                                                   (Node-boston 5868
+                                                    (boston FLY))
+                                                   (Node-ithaca 6323
+                                                    (ithaca FLY)))
+The nodes, f-values, and actions on closed list are ((Node-miami 4265
+                                                      (miami TAKE-BUS))
+                                                     (Node-stlouis 3664
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 2692
+                                                      (memphis FLY))
+                                                     (Node-roanoke 2163 NIL))
+
+Select a new node from open list
+The selected node is Node-westpalm
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((pittsburgh FLY 1540)
+                                          (baltimore FLY 1368))
+     The next successor is (pittsburgh FLY 1540)
+this successor is not on open or closed list
+     The next successor is (baltimore FLY 1368)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-dallas 4665
+                                                    (dallas FLY))
+                                                   (Node-seattle 4906
+                                                    (seattle FLY))
+                                                   (Node-philadelphia 5394
+                                                    (philadelphia FLY))
+                                                   (Node-boston 5868
+                                                    (boston FLY))
+                                                   (Node-baltimore 6119
+                                                    (baltimore FLY))
+                                                   (Node-pittsburgh 6136
+                                                    (pittsburgh FLY))
+                                                   (Node-ithaca 6323
+                                                    (ithaca FLY)))
+The nodes, f-values, and actions on closed list are ((Node-westpalm 4395
+                                                      (westpalm TAKE-BUS))
+                                                     (Node-miami 4265
+                                                      (miami TAKE-BUS))
+                                                     (Node-stlouis 3664
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 2692
+                                                      (memphis FLY))
+                                                     (Node-roanoke 2163 NIL))
+
+Select a new node from open list
+The selected node is Node-dallas
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((minneapolis FLY 1595)
+                                          (witchita TAKE-BUS 1300)
+                                          (witchita TAKE-TRAIN 1100.0)
+                                          (losangeles TAKE-TRAIN 2013.5))
+     The next successor is (minneapolis FLY 1595)
+this successor is not on open or closed list
+     The next successor is (witchita TAKE-BUS 1300)
+this successor is not on open or closed list
+     The next successor is (witchita TAKE-TRAIN 1100.0)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (losangeles TAKE-TRAIN 2013.5)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-seattle 4906
+                                                    (seattle FLY))
+                                                   (Node-philadelphia 5394
+                                                    (philadelphia FLY))
+                                                   (Node-losangeles 5469.5
+                                                    (losangeles TAKE-TRAIN))
+                                                   (Node-witchita 5838.0
+                                                    (witchita TAKE-TRAIN))
+                                                   (Node-boston 5868
+                                                    (boston FLY))
+                                                   (Node-baltimore 6119
+                                                    (baltimore FLY))
+                                                   (Node-pittsburgh 6136
+                                                    (pittsburgh FLY))
+                                                   (Node-ithaca 6323
+                                                    (ithaca FLY))
+                                                   (Node-minneapolis 6919
+                                                    (minneapolis FLY)))
+The nodes, f-values, and actions on closed list are ((Node-dallas 4665
+                                                      (dallas FLY))
+                                                     (Node-westpalm 4395
+                                                      (westpalm TAKE-BUS))
+                                                     (Node-miami 4265
+                                                      (miami TAKE-BUS))
+                                                     (Node-stlouis 3664
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 2692
+                                                      (memphis FLY))
+                                                     (Node-roanoke 2163 NIL))
+
+Select a new node from open list
+The selected node is Node-seattle
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((boise TAKE-BUS 966)
+                                          (losangeles TAKE-TRAIN 2055.5))
+     The next successor is (boise TAKE-BUS 966)
+this successor is not on open or closed list
+     The next successor is (losangeles TAKE-TRAIN 2055.5)
+this successor is on open or closed but path is not better
+
+The nodes, f-values, and actions on open list are ((Node-philadelphia 5394
+                                                    (philadelphia FLY))
+                                                   (Node-losangeles 5469.5
+                                                    (losangeles TAKE-TRAIN))
+                                                   (Node-boise 5597
+                                                    (boise TAKE-BUS))
+                                                   (Node-witchita 5838.0
+                                                    (witchita TAKE-TRAIN))
+                                                   (Node-boston 5868
+                                                    (boston FLY))
+                                                   (Node-baltimore 6119
+                                                    (baltimore FLY))
+                                                   (Node-pittsburgh 6136
+                                                    (pittsburgh FLY))
+                                                   (Node-ithaca 6323
+                                                    (ithaca FLY))
+                                                   (Node-minneapolis 6919
+                                                    (minneapolis FLY)))
+The nodes, f-values, and actions on closed list are ((Node-seattle 4906
+                                                      (seattle FLY))
+                                                     (Node-dallas 4665
+                                                      (dallas FLY))
+                                                     (Node-westpalm 4395
+                                                      (westpalm TAKE-BUS))
+                                                     (Node-miami 4265
+                                                      (miami TAKE-BUS))
+                                                     (Node-stlouis 3664
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 2692
+                                                      (memphis FLY))
+                                                     (Node-roanoke 2163 NIL))
+
+Select a new node from open list
+The selected node is Node-philadelphia
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((baltimore FLY 485)
+                                          (stlouis FLY 1071) (newark FLY 442)
+                                          (newark TAKE-BUS 142)
+                                          (baltimore TAKE-BUS 185)
+                                          (ithaca TAKE-BUS 328))
+     The next successor is (baltimore FLY 485)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (stlouis FLY 1071)
+this successor is on open or closed but path is not better
+     The next successor is (newark FLY 442)
+this successor is not on open or closed list
+     The next successor is (newark TAKE-BUS 142)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (baltimore TAKE-BUS 185)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (ithaca TAKE-BUS 328)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+
+The nodes, f-values, and actions on open list are ((Node-losangeles 5469.5
+                                                    (losangeles TAKE-TRAIN))
+                                                   (Node-newark 5499
+                                                    (newark TAKE-BUS))
+                                                   (Node-baltimore 5505
+                                                    (baltimore TAKE-BUS))
+                                                   (Node-boise 5597
+                                                    (boise TAKE-BUS))
+                                                   (Node-ithaca 5710
+                                                    (ithaca TAKE-BUS))
+                                                   (Node-witchita 5838.0
+                                                    (witchita TAKE-TRAIN))
+                                                   (Node-boston 5868
+                                                    (boston FLY))
+                                                   (Node-pittsburgh 6136
+                                                    (pittsburgh FLY))
+                                                   (Node-minneapolis 6919
+                                                    (minneapolis FLY)))
+The nodes, f-values, and actions on closed list are ((Node-philadelphia 5394
+                                                      (philadelphia FLY))
+                                                     (Node-seattle 4906
+                                                      (seattle FLY))
+                                                     (Node-dallas 4665
+                                                      (dallas FLY))
+                                                     (Node-westpalm 4395
+                                                      (westpalm TAKE-BUS))
+                                                     (Node-miami 4265
+                                                      (miami TAKE-BUS))
+                                                     (Node-stlouis 3664
+                                                      (stlouis TAKE-TRAIN))
+                                                     (Node-memphis 2692
+                                                      (memphis FLY))
+                                                     (Node-roanoke 2163 NIL))
+
+Select a new node from open list
+The selected node is Node-losangeles
+Check if this node is the goal node
+
+This is the goal node
+Here is the list of actions and total path cost in the solution
+
+((("miami" TAKE-BUS) ("dallas" FLY) ("losangeles" TAKE-TRAIN)) 5469.5) 
+
+
+******************************************************
+******************************************************
+
+(TRAVELAGENT "denver" "ithaca" 'GOAL-TEST-TP? 'SUCCESSORS-TP
+             'GET-GOAL-ESTIMATE-TP) 
+
+The nodes, f-values, and actions on open list are ((Node-denver 1727 NIL))
+The nodes, f-values, and actions on closed list are NIL
+
+Select a new node from open list
+The selected node is Node-denver
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((baltimore FLY 2140)
+                                          (stlouis FLY 1630) (miami FLY 2214)
+                                          (boston TAKE-BUS 4038)
+                                          (miami TAKE-BUS 3728)
+                                          (durango TAKE-BUS 830)
+                                          (phoenix TAKE-BUS 1898)
+                                          (phoenix TAKE-TRAIN 1548.5))
+     The next successor is (baltimore FLY 2140)
+this successor is not on open or closed list
+     The next successor is (stlouis FLY 1630)
+this successor is not on open or closed list
+     The next successor is (miami FLY 2214)
+this successor is not on open or closed list
+     The next successor is (boston TAKE-BUS 4038)
+this successor is not on open or closed list
+     The next successor is (miami TAKE-BUS 3728)
+this successor is on open or closed but path is not better
+     The next successor is (durango TAKE-BUS 830)
+this successor is not on open or closed list
+     The next successor is (phoenix TAKE-BUS 1898)
+this successor is not on open or closed list
+     The next successor is (phoenix TAKE-TRAIN 1548.5)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+
+The nodes, f-values, and actions on open list are ((Node-stlouis 2351
+                                                    (stlouis FLY))
+                                                   (Node-baltimore 2412
+                                                    (baltimore FLY))
+                                                   (Node-durango 2699
+                                                    (durango TAKE-BUS))
+                                                   (Node-miami 3491
+                                                    (miami FLY))
+                                                   (Node-phoenix 3896.5
+                                                    (phoenix TAKE-TRAIN))
+                                                   (Node-boston 4280
+                                                    (boston TAKE-BUS)))
+The nodes, f-values, and actions on closed list are ((Node-denver 1727 NIL))
+
+Select a new node from open list
+The selected node is Node-stlouis
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((philadelphia FLY 1071)
+                                          (boston FLY 1324))
+     The next successor is (philadelphia FLY 1071)
+this successor is not on open or closed list
+     The next successor is (boston FLY 1324)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+
+The nodes, f-values, and actions on open list are ((Node-baltimore 2412
+                                                    (baltimore FLY))
+                                                   (Node-durango 2699
+                                                    (durango TAKE-BUS))
+                                                   (Node-philadelphia 2929
+                                                    (philadelphia FLY))
+                                                   (Node-boston 3196
+                                                    (boston FLY))
+                                                   (Node-miami 3491
+                                                    (miami FLY))
+                                                   (Node-phoenix 3896.5
+                                                    (phoenix TAKE-TRAIN)))
+The nodes, f-values, and actions on closed list are ((Node-stlouis 2351
+                                                      (stlouis FLY))
+                                                     (Node-denver 1727 NIL))
+
+Select a new node from open list
+The selected node is Node-baltimore
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((miami FLY 1419)
+                                          (philadelphia FLY 485))
+     The next successor is (miami FLY 1419)
+this successor is on open or closed but path is not better
+     The next successor is (philadelphia FLY 485)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+
+The nodes, f-values, and actions on open list are ((Node-durango 2699
+                                                    (durango TAKE-BUS))
+                                                   (Node-philadelphia 2853
+                                                    (philadelphia FLY))
+                                                   (Node-boston 3196
+                                                    (boston FLY))
+                                                   (Node-miami 3491
+                                                    (miami FLY))
+                                                   (Node-phoenix 3896.5
+                                                    (phoenix TAKE-TRAIN)))
+The nodes, f-values, and actions on closed list are ((Node-baltimore 2412
+                                                      (baltimore FLY))
+                                                     (Node-stlouis 2351
+                                                      (stlouis FLY))
+                                                     (Node-denver 1727 NIL))
+
+Select a new node from open list
+The selected node is Node-durango
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are NIL
+
+The nodes, f-values, and actions on open list are ((Node-philadelphia 2853
+                                                    (philadelphia FLY))
+                                                   (Node-boston 3196
+                                                    (boston FLY))
+                                                   (Node-miami 3491
+                                                    (miami FLY))
+                                                   (Node-phoenix 3896.5
+                                                    (phoenix TAKE-TRAIN)))
+The nodes, f-values, and actions on closed list are ((Node-durango 2699
+                                                      (durango TAKE-BUS))
+                                                     (Node-baltimore 2412
+                                                      (baltimore FLY))
+                                                     (Node-stlouis 2351
+                                                      (stlouis FLY))
+                                                     (Node-denver 1727 NIL))
+
+Select a new node from open list
+The selected node is Node-philadelphia
+Check if this node is the goal node
+This is NOT the goal node
+Its successors (and their arc costs) are ((baltimore FLY 485)
+                                          (stlouis FLY 1071) (newark FLY 442)
+                                          (newark TAKE-BUS 142)
+                                          (baltimore TAKE-BUS 185)
+                                          (ithaca TAKE-BUS 328))
+     The next successor is (baltimore FLY 485)
+this successor is on open or closed but path is not better
+     The next successor is (stlouis FLY 1071)
+this successor is on open or closed but path is not better
+     The next successor is (newark FLY 442)
+this successor is not on open or closed list
+     The next successor is (newark TAKE-BUS 142)
+**** ON OPEN AND IT HAS A NEW BETTER PATH COST***
+     The next successor is (baltimore TAKE-BUS 185)
+this successor is on open or closed but path is not better
+     The next successor is (ithaca TAKE-BUS 328)
+this successor is not on open or closed list
+
+The nodes, f-values, and actions on open list are ((Node-ithaca 2953
+                                                    (ithaca TAKE-BUS))
+                                                   (Node-newark 3014
+                                                    (newark TAKE-BUS))
+                                                   (Node-boston 3196
+                                                    (boston FLY))
+                                                   (Node-miami 3491
+                                                    (miami FLY))
+                                                   (Node-phoenix 3896.5
+                                                    (phoenix TAKE-TRAIN)))
+The nodes, f-values, and actions on closed list are ((Node-philadelphia 2853
+                                                      (philadelphia FLY))
+                                                     (Node-durango 2699
+                                                      (durango TAKE-BUS))
+                                                     (Node-baltimore 2412
+                                                      (baltimore FLY))
+                                                     (Node-stlouis 2351
+                                                      (stlouis FLY))
+                                                     (Node-denver 1727 NIL))
+
+Select a new node from open list
+The selected node is Node-ithaca
+Check if this node is the goal node
+
+This is the goal node
+Here is the list of actions and total path cost in the solution
+
+((("baltimore" FLY) ("philadelphia" FLY) ("ithaca" TAKE-BUS)) 2953) 
+
+
+******************************************************
+******************************************************
+TravelAgent testcases completed
+NIL
+* 
